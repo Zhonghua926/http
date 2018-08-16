@@ -1,1 +1,41 @@
 47.106.175.176
+//创建分支dev
+
+git checkout -b dev
+
+//切换到dev分支
+
+git checkout dev
+
+//查看分支
+
+git branch
+
+
+//上传文件
+
+git add -A
+
+git commit -m "filename"
+
+git remote add origin https://github.com/Zhonghua926/newfile.git
+
+git push -u origin master
+//克隆文件
+
+1、在本机新建一个文件
+
+2、在该文件键入cmd指令
+
+3、git clone https://github.com/404error123/MyPage.git
+
+
+//上传推送文件
+
+git add -A
+
+git commit -m "change"
+
+git remote add origin https://github.com/404error123/MyPage.git
+
+git push -u origin master
