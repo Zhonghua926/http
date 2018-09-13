@@ -1,4 +1,8 @@
 47.106.175.176
+
+alias ls='ls --color'
+source .bashrc
+
 //创建分支dev
 
 git checkout -b dev
@@ -12,15 +16,24 @@ git checkout dev
 git branch
 
 
-//上传文件
 
-git add -A
+//新建一个文件夹上传文件
 
-git commit -m "filename"
+1、git init
+2、git add -A
 
-git remote add origin https://github.com/Zhonghua926/newfile.git
+3、git commit -m "filename"
 
-git push -u origin master
+4、git remote add origin https://github.com/Zhonghua926/newfile.git
+
+5、git push -u origin master
+
+//第二次上传文件
+
+1、git add -A
+2、git commit -m "change"
+3、git push -u origin master
+
 //克隆文件
 
 1、在本机新建一个文件
@@ -30,12 +43,5 @@ git push -u origin master
 3、git clone https://github.com/404error123/MyPage.git
 
 
-//上传推送文件
 
-git add -A
 
-git commit -m "change"
-
-git remote add origin https://github.com/404error123/MyPage.git
-
-git push -u origin master

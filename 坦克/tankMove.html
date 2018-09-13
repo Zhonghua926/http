@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	    body,h1,h2,h3{
+	    	margin: 0;
+	    }
+		div{
+			width: 600px;
+			height: 400px;
+			border:1px solid red;
+			margin: 20px auto;
+			position: relative;
+		}
+		h2{
+			width: 50px;
+			height: 50px;
+			background-size: 50px 50px;
+			position: absolute;
+		}
+		p{
+			position: absolute;
+			margin: 0;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background-color: blue;
+			display: none;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var div = document.getElementsByTagName('div')[0];
+			var h2 = document.getElementsByTagName('h2')[0];
+			var p = document.getElementsByTagName('p')[0];
+			var 
+			stepDirec = 5,
+			spot = 15,
+			divWidth = 600,
+			divHeight = 400,
+			pWidth = 50;
+			var address = ['url(./images/tanke_up.jpg)','url(./images/tanke_left.jpg)','url(./images/tanke_down.jpg)','url(./images/tanke_right.jpg)'];
+			var count = 5,
+			number = 0;
+			var h3Arr = [];
+
+			h2.style.backgroundImage = 'url(./images/tanke_up.jpg)';
+			h2.style.top = 350 +'px';
+			h2.style.left = 200 +'px';
+			function ptext(){
+				p.style.transition = '0';
+				p.style.top = parseInt(h2.style.top) + pWidth*0.4 +'px';
+				p.style.left = parseInt(h2.style.left) + pWidth*0.4 +'px';
+			}
+			ptext();
+			function randomTank(){
+				for(var i = 0; i < 5; i++){
+					var tankDirect = Math.floor(Math.random()*4);
+					var tankLeft = Math.round(Math.random()*550);
+					var tankTop = Math.round(Math.random()*250);
+					var newTank = document.createElement('h3');
+					newTank.style = 'width:50px;height:50px;position:absolute;left:'+tankLeft+'px;top:'+tankTop+'px;background-size:50px 50px;';
+					newTank.style.backgroundImage = address[tankDirect];
+					var cloneNewTank = newTank.cloneNode(true);
+					div.appendChild(cloneNewTank);
+				}
+				function randomTankMove(){
+					var h3 = document.getElementsByTagName('h3');
+					for(var j = 0; j < h3.length; j++){
+						h3Arr.push(h3[j]);
+						h3[j].style.transition = '0.3s';
+						(function(j){
+							var moveDirectSetInter = setInterval(function(){
+								var numDic = Math.floor(Math.random()*4);
+								var numSrc = Math.floor(Math.random()*50-25);
+								var offsetLeft1 = parseInt(h3[j].style.left),
+								offsetTop1 = parseInt(h3[j].style.top);
+								if(numDic == 0){
+									h3[j].style.backgroundImage = 'url(./images/tanke_left.jpg)';
+									h3[j].style.left = offsetLeft1-numSrc +'px';
+									if(parseInt(h3[j].style.left) <= 0){
+										h3[j].style.left = 0;
+									}
+									if(parseInt(h3[j].style.left) >= (divWidth-pWidth)){
+										h3[j].style.left = (divWidth-pWidth)  +'px';
+									}
+								}
+								if(numDic == 1){
+									h3[j].style.backgroundImage = 'url(./images/tanke_up.jpg)';
+									h3[j].style.top = offsetTop1-numSrc +'px';
+									if(parseInt(h3[j].style.top) <= 0){
+										h3[j].style.top = 0;
+									}
+									if(parseInt(h3[j].style.top) >= (divHeight-pWidth)){
+										h3[j].style.top = (divHeight-pWidth) +'px';
+									}
+								}
+								if(numDic == 2){
+									h3[j].style.backgroundImage = 'url(./images/tanke_down.jpg)';
+									h3[j].style.top = offsetTop1+numSrc+'px';
+									if(parseInt(h3[j].style.top) <= 0){
+										h3[j].style.top = 0;
+									}
+									if(parseInt(h3[j].style.top) >= (divHeight-pWidth)){
+										h3[j].style.top = (divHeight-pWidth) +'px';
+									}
+								}
+								if(numDic == 3){
+									h3[j].style.backgroundImage = 'url(./images/tanke_right.jpg)';
+									h3[j].style.right = offsetLeft1+numSrc +'px';
+									if(parseInt(h3[j].style.left) <= 0){
+										h3[j].style.left = 0;
+									}
+									if(parseInt(h3[j].style.left) >= (divWidth-pWidth)){
+										h3[j].style.left = (divWidth-pWidth)  +'px';
+									}
+								}
+							},400);
+						}(j));
+					}
+				}
+				randomTankMove();
+			}
+			randomTank();
+			window.onkeydown = function(e){
+				if(count <= 1){
+					setTimeout(randomTank,1000);
+					count = 6;
+				}
+				if(number >= 13){
+					alert('您击杀了'+number+'个坦克，恭喜过关!');
+					window.onkeydown = null;
+				}
+				switch(e.keyCode){
+					case 37:
+						h2.style.backgroundImage = 'url(./images/tanke_left.jpg)';
+						h2.style.left = h2.offsetLeft - stepDirec +'px';
+						ptext();
+						if(parseInt(h2.style.left) <= 0){
+							h2.style.left = 0;
+						}
+						break;
+					case 38:
+						h2.style.backgroundImage = 'url(./images/tanke_up.jpg)';
+						h2.style.top = h2.offsetTop - stepDirec +'px';
+						ptext();
+						if(parseInt(h2.style.top) <= 0){
+							h2.style.top = 0;
+						}
+						break;
+					case 39:
+						h2.style.backgroundImage = 'url(./images/tanke_right.jpg)';
+						h2.style.left = h2.offsetLeft + stepDirec +'px';
+						ptext();
+						if(parseInt(h2.style.left) >= (divWidth-pWidth)){
+							h2.style.left = (divWidth-pWidth)  +'px';
+						}
+						break;
+					case 40:
+						h2.style.backgroundImage = 'url(./images/tanke_down.jpg)';
+						h2.style.top = h2.offsetTop + stepDirec +'px';
+						ptext();
+						if(parseInt(h2.style.top) >= (divHeight-pWidth)){
+							h2.style.top = (divHeight-pWidth) +'px';
+						}
+						break;
+					case 32:
+						var pCopy = p.cloneNode(true);
+						div.appendChild(pCopy);
+						pCopy.style.display = 'block';
+						pCopy.style.transition = '0.01s';
+						if(h2.style.backgroundImage == 'url("./images/tanke_up.jpg")'){
+							var set1 = setInterval(function(){
+								pCopy.style.top = pCopy.offsetTop - spot +'px';
+								var result = removeTO();
+								if(result){
+									clearInterval(set1);
+									div.removeChild(pCopy);
+									count--;
+									number++;
+								}else if(parseInt(pCopy.style.top) <= 0){
+									clearInterval(set1);
+									div.removeChild(pCopy);
+								}
+							},100)
+						}
+						if(h2.style.backgroundImage == 'url("./images/tanke_down.jpg")'){
+							var set2 = setInterval(function(){
+								pCopy.style.top = pCopy.offsetTop + spot +'px';
+								var result = removeTO();
+								if(result){
+									clearInterval(set2);
+									div.removeChild(pCopy);
+									count--;
+									number++;
+								}else if(parseInt(pCopy.style.top) >= divHeight){
+									clearInterval(set2);
+									div.removeChild(pCopy);
+								}
+							},100)
+						}
+						if(h2.style.backgroundImage == 'url("./images/tanke_left.jpg")'){
+							var set3 = setInterval(function(){
+								pCopy.style.left = pCopy.offsetLeft - spot +'px';
+								var result = removeTO();
+								if(result){
+									clearInterval(set3);
+									div.removeChild(pCopy);
+									count--;
+									number++;
+								}else if(parseInt(pCopy.style.left) <= 0){
+									clearInterval(set3);
+									div.removeChild(pCopy);
+								}
+							},100)
+						}
+						if(h2.style.backgroundImage == 'url("./images/tanke_right.jpg")'){
+							var set4 = setInterval(function(){
+								pCopy.style.left = pCopy.offsetLeft + spot +'px';
+								var result = removeTO();
+								if(result){
+									clearInterval(set4);
+									div.removeChild(pCopy);
+									count--;
+									number++;
+								}else if(parseInt(pCopy.style.left) >= divWidth){
+									clearInterval(set4);
+									div.removeChild(pCopy);
+								}
+							},100)
+						}
+						function removeTO(){
+							for(var i = 0; i < h3Arr.length; i++){
+								var width = Math.abs(parseInt(h3Arr[i].style.left)-parseInt(pCopy.style.left));
+								var height = Math.abs(parseInt(h3Arr[i].style.top)-parseInt(pCopy.style.top));
+								if(width <= (pWidth-20)&& height <= (pWidth-20)){
+									h3Arr[i].removeAttribute('style');
+									return 1;
+								}
+							}
+						}
+						break;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<h2></h2>
+		<p></p>
+	</div>
+</body>
+</html>
