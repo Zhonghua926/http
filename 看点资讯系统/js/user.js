@@ -196,10 +196,9 @@ $(function(){
 	});
 	/*更改头像图片*/
 	$(".png img").on("click",function(){
-		$(this).parent().find("div").toggle();
 		var $img = $(this);
+		$(this).parent().find("div input").trigger("click");
 		$(this).parent().find("div input").on('change',function(){
-			$img.parent().find("div").hide();
 			var forma = new FormData();
 			var file = this.files[0];
 			var obj = {

@@ -130,8 +130,9 @@ $(function(){
 		$.get("http://120.78.164.247:8099/manager/category/findAllCategory",function(data){
 			var request = data.data;
 			request.forEach(function(item){
-				$(".addData select").append("<option value='"+item.id+"'>"+item.name+"</option>")
+				$("div.replaceData select").append("<option value='"+item.id+"'>"+item.name+"</option>");
 			});
+			$("div.replaceData select").append("<option></option>");
 		});
 		//3. 获取表中数据
 		var replace = $(".replaceData");

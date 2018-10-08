@@ -13,7 +13,6 @@ $(function(){
 		pageSize:size
 	}
 	$(".page").html(num);
-	
 	//手动输入页码获取数据
 	$(".getPage button").click(function(){
 		num = $(".getPage input:first").val();
@@ -22,7 +21,9 @@ $(function(){
 		obj.pageSize = size;
 		$(".page").html(num);
 		getData();
-		//翻页功能
+	});
+	//翻页功能
+	function nextPrv(){
 		$.get("http://120.78.164.247:8099/manager/article/findArticle",obj,function(data){
 			var number,
 				count;
@@ -52,11 +53,10 @@ $(function(){
 				count = data.data.total;
 				$(".pev").on("click",pev);
 				$(".next").on("click",next);
-			}else{
-				count = 1000;
 			}
 		});
-	});
+	}
+	nextPrv();
 	//从数据库获取数据，并展示到页面
 	function getData(){
 		$.get("http://120.78.164.247:8099/manager/article/findArticle",obj,function(data){
