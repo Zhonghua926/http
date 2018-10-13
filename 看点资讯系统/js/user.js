@@ -180,15 +180,17 @@ $(function(){
 	/*删除用户*/
 	$('.liParent').on('click','.deleteUser',function(){
 		var ids = $(this).parents("li").find("table").attr("keyid");
+		var li = $(this).parents("li");
 		var obj = {
 			id:ids
 		}
 		$.get("http://120.78.164.247:8099/manager/user/deleteUserById",obj,function(result){
 			if(result.status == 200){
 				$('.alert').css("display","block");
+				li.remove();
 				setTimeout(function(){
-					location.reload()
-				},800);
+					$('.alert').css("display","none");
+				},300);
 			}else{
 				alert(result.status+"，删除失败")
 			}
